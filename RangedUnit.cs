@@ -8,7 +8,6 @@ namespace Berzerkers
 {
     abstract class RangedUnit : Unit
     {
-
         public virtual float Range { get; protected set; }
 
         public override void Attack(Unit defender)
@@ -20,6 +19,5 @@ namespace Berzerkers
         {
             attacker.TakeDamage(this.Damage);
         }
-
     }
 }

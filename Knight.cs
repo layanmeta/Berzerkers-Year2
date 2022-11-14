@@ -15,6 +15,7 @@ namespace Berzerkers
             this.Hp = 20;
             this._Race = Race.Human;
         }
+
         //50% chance to crit
         public override void Attack(Unit defender)
         {
@@ -29,6 +30,5 @@ namespace Berzerkers
                 defender.TakeDamage(this.Damage);
             }
         }
-
     }
 }

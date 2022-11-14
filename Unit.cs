@@ -9,8 +9,8 @@ namespace Berzerkers
     abstract class Unit
     {
         public virtual int Damage { get; protected set; } 
-        public virtual int Hp { get; set; }
-        public virtual Race _Race { get; set; }
+        public virtual int Hp { get; protected set; }
+        public virtual Race _Race { get; protected set; }
 
         public virtual void TakeDamage(int dmg)
         {
