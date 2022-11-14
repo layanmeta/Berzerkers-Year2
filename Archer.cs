@@ -8,7 +8,7 @@ namespace Berzerkers
 {
     sealed class Archer : RangedUnit
     {
-        public Archer(Race race)
+        public Archer()
         {
             this.Damage = 7;
             this.Hp = 10;
