@@ -10,9 +10,13 @@ namespace Berzerkers
     {
         public Mage()
         {
-            this.Damage = 10;
+            this.Damage = new Dice(2,20,3);
+            this.HitChance = new Dice(3, 20, 3);
+            this.DefenceRating = new Dice(1, 8, 1);
+            this.LootCapacity = 1;
+            this.Resources = 2;
             this.Hp = 5;
-            this._Race = Race.Human;
+            this.Race = Race.Human;
         }
     }
 }

@@ -10,9 +10,13 @@ namespace Berzerkers
     {
         public Shaman()
         {
-            this.Damage = 4;
-            this.Hp = 20;
-            this._Race = Race.Elf;
+            this.Damage = new Dice(1,20,3);
+            this.HitChance = new Dice(1, 10, 3);
+            this.DefenceRating = new Dice(2, 8, 1);
+            this.LootCapacity = 1;
+            this.Resources = 2;
+            this.Hp = 15;
+            this.Race = Race.Elf;
         }
     }
 }

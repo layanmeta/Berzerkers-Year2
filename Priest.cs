@@ -10,24 +10,33 @@ namespace Berzerkers
     {
         public Priest()
         {
-            this.Damage = 4;
+            this.Damage = new Dice(1,4,3);
+            this.HitChance = new Dice(1, 12, 1);
+            this.DefenceRating = new Dice(2, 8, 1);
+            this.LootCapacity = 2;
+            this.Resources = 2;
             this.Hp = 20;
-            this._Race = Race.Human;
+            this.Race = Race.Human;
         }
 
         //50% chance to heal once being attacked
         public override void Defend(Unit attacker)
         {
-            Random rnd = new Random();
-            int healChance = rnd.Next(0, 100);
-            if (healChance >= 50)
+            int rollToHit = HitChance.Roll();
+            int enemyDefendRoll = DefenceRating.Roll();
+            if (rollToHit >= enemyDefendRoll)
             {
-                attacker.TakeDamage(this.Damage);
-                Hp += 5;
-            }
-            else
-            {
-                attacker.TakeDamage(this.Damage);
+                Random rnd = new Random();
+                int healChance = rnd.Next(0, 100);
+                if (healChance >= 50)
+                {
+                    attacker.TakeDamage(Damage.Roll());
+                    Hp += 5;
+                }
+                else
+                {
+                    attacker.TakeDamage(Damage.Roll());
+                }
             }
         }
     }

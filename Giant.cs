@@ -10,15 +10,24 @@ namespace Berzerkers
     {
         public Giant()
         {
-            this.Damage = 2;
+            this.Damage = new Dice(1, 6, -2);
+            this.HitChance = new Dice(1, 6, 1);
+            this.DefenceRating = new Dice(3, 6, 2);
+            this.LootCapacity = 3;
+            this.Resources = 1;
             this.Hp = 20;
-            this._Race = Race.Orc;
+            this.Race = Race.Orc;
         }
 
         //takes half damage as tank
-        public override  void Defend(Unit attacker)
+        public override void Defend(Unit attacker)
         {
-            attacker.TakeDamage(this.Damage/2);
+            int rollToHit = HitChance.Roll();
+            int enemyDefendRoll = DefenceRating.Roll();
+            if (rollToHit >= enemyDefendRoll)
+            {
+                attacker.TakeDamage(Damage.Roll() / 2);
+            }
         }
     }
 }

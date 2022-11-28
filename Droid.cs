@@ -11,22 +11,31 @@ namespace Berzerkers
         private bool firstHit = true;
         public Droid()
         {
-            this.Damage = 4;
+            this.Damage = new Dice(2,8,1);
+            this.HitChance = new Dice(1, 12, 1);
+            this.DefenceRating = new Dice(1, 10, 1);
+            this.LootCapacity = 6;
+            this.Resources = 1;
             this.Hp = 20;
-            this._Race = Race.Elf;
+            this.Race = Race.Elf;
         }
 
         //does double damage on first attack only
         public override void Attack(Unit defender)
         {
-            if (firstHit == true)
+            int rollToHit = HitChance.Roll();
+            int enemyDefendRoll = DefenceRating.Roll();
+            if (rollToHit >= enemyDefendRoll)
             {
-                defender.TakeDamage(this.Damage * 2);
-                firstHit = false;
-            }
-            else
-            {
-                defender.TakeDamage(this.Damage);
+                if (firstHit == true)
+                {
+                    defender.TakeDamage(Damage.Roll() * 2);
+                    firstHit = false;
+                }
+                else
+                {
+                    defender.TakeDamage(Damage.Roll());
+                }
             }
         }
     }

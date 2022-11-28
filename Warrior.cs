@@ -10,9 +10,13 @@ namespace Berzerkers
     {
         public Warrior()
         {
-            this.Damage = 6;
+            this.Damage = new Dice(2,20,5);
+            this.HitChance = new Dice(1, 20, 1);
+            this.DefenceRating = new Dice(2, 12, 1);
+            this.LootCapacity = 4;
+            this.Resources = 1;
             this.Hp = 15;
-            this._Race = Race.Orc;
+            this.Race = Race.Orc;
         }
     }
 }
