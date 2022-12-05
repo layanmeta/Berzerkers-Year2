@@ -23,18 +23,18 @@ namespace Berzerkers
         //does double damage on first attack only
         public override void Attack(Unit defender)
         {
-            int rollToHit = HitChance.Roll();
-            int enemyDefendRoll = DefenceRating.Roll();
+            int rollToHit = HitChance.RandomRangedGeneration();
+            int enemyDefendRoll = DefenceRating.RandomRangedGeneration();
             if (rollToHit >= enemyDefendRoll)
             {
                 if (firstHit == true)
                 {
-                    defender.TakeDamage(Damage.Roll() * 2);
+                    defender.TakeDamage(Damage.RandomRangedGeneration() * 2);
                     firstHit = false;
                 }
                 else
                 {
-                    defender.TakeDamage(Damage.Roll());
+                    defender.TakeDamage(Damage.RandomRangedGeneration());
                 }
             }
         }

@@ -22,20 +22,20 @@ namespace Berzerkers
         //50% chance to heal once being attacked
         public override void Defend(Unit attacker)
         {
-            int rollToHit = HitChance.Roll();
-            int enemyDefendRoll = DefenceRating.Roll();
+            int rollToHit = HitChance.RandomRangedGeneration();
+            int enemyDefendRoll = DefenceRating.RandomRangedGeneration();
             if (rollToHit >= enemyDefendRoll)
             {
                 Random rnd = new Random();
                 int healChance = rnd.Next(0, 100);
                 if (healChance >= 50)
                 {
-                    attacker.TakeDamage(Damage.Roll());
+                    attacker.TakeDamage(Damage.RandomRangedGeneration());
                     Hp += 5;
                 }
                 else
                 {
-                    attacker.TakeDamage(Damage.Roll());
+                    attacker.TakeDamage(Damage.RandomRangedGeneration());
                 }
             }
         }

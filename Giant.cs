@@ -22,11 +22,11 @@ namespace Berzerkers
         //takes half damage as tank
         public override void Defend(Unit attacker)
         {
-            int rollToHit = HitChance.Roll();
-            int enemyDefendRoll = DefenceRating.Roll();
+            int rollToHit = HitChance.RandomRangedGeneration();
+            int enemyDefendRoll = DefenceRating.RandomRangedGeneration();
             if (rollToHit >= enemyDefendRoll)
             {
-                attacker.TakeDamage(Damage.Roll() / 2);
+                attacker.TakeDamage(Damage.RandomRangedGeneration() / 2);
             }
         }
     }

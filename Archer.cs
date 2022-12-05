@@ -10,9 +10,9 @@ namespace Berzerkers
     {
         public Archer()
         {
-            this.Damage = new Dice(3,20,1);
-            this.HitChance = new Dice(1, 8, 2);
-            this.DefenceRating = new Dice(1, 6, 1);
+            this.Damage = new Bag(15); ;
+            this.HitChance = new Bag(5);
+            this.DefenceRating = new Bag(10);
             this.LootCapacity = 4;
             this.Resources = 2;
             this.Hp = 10;

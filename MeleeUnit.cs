@@ -10,21 +10,21 @@ namespace Berzerkers
     {
         public override void Attack(Unit defender)
         {
-            int rollToHit = HitChance.Roll();
-            int enemyDefendRoll = DefenceRating.Roll();
+            int rollToHit = HitChance.RandomRangedGeneration();
+            int enemyDefendRoll = DefenceRating.RandomRangedGeneration();
             if (rollToHit >= enemyDefendRoll)
             {
-                defender.TakeDamage(Damage.Roll() +2);
+                defender.TakeDamage(Damage.RandomRangedGeneration() +2);
             }
         }
 
         public override void Defend(Unit attacker)
         {
-            int rollToHit = HitChance.Roll();
-            int enemyDefendRoll = DefenceRating.Roll();
+            int rollToHit = HitChance.RandomRangedGeneration();
+            int enemyDefendRoll = DefenceRating.RandomRangedGeneration();
             if (rollToHit >= enemyDefendRoll)
             {
-                attacker.TakeDamage(Damage.Roll() - 1);
+                attacker.TakeDamage(Damage.RandomRangedGeneration() - 1);
             }
         }
     }

@@ -8,16 +8,15 @@ namespace Berzerkers
 {
     abstract class Unit
     {
-        //Need to change int to Dice Damage
-        public virtual Dice Damage { get; protected set; }
+        public virtual IRandomProvider Damage { get; protected set; }
         public virtual int Hp { get; protected set; }
         public virtual Race Race { get; protected set; }
         public virtual WeatherEffects Weather { get; protected set; }
         public virtual int LootCapacity { get; protected set; }
         public virtual int Resources { get; protected set; }
 
-        protected Dice HitChance = new Dice();
-        protected Dice DefenceRating = new Dice();
+        protected IRandomProvider HitChance = new Dice();
+        protected IRandomProvider DefenceRating = new Dice();
 
         public virtual void TakeDamage(int dmg)
         {
@@ -26,21 +25,21 @@ namespace Berzerkers
 
         public virtual void Attack(Unit defender)
         {
-            int rollToHit = HitChance.Roll();
-            int enemyDefendRoll = defender.DefenceRating.Roll();
+            int rollToHit = HitChance.RandomRangedGeneration();
+            int enemyDefendRoll = defender.DefenceRating.RandomRangedGeneration();
             if (rollToHit >= enemyDefendRoll)
             {
-                defender.TakeDamage(Damage.Roll());
+                defender.TakeDamage(Damage.RandomRangedGeneration());
             }
         }
 
         public virtual void Defend(Unit attacker)
         {
-            int rollToHit = HitChance.Roll();
-            int enemyDefendRoll = attacker.DefenceRating.Roll();
+            int rollToHit = HitChance.RandomRangedGeneration();
+            int enemyDefendRoll = attacker.DefenceRating.RandomRangedGeneration();
             if (rollToHit >= enemyDefendRoll)
             {
-                attacker.TakeDamage(Damage.Roll());
+                attacker.TakeDamage(Damage.RandomRangedGeneration());
             }
         }
 
@@ -48,7 +47,98 @@ namespace Berzerkers
         {
 
         }
+
     }
+
+    struct Dice : IRandomProvider
+    {
+        public uint Scalar { get; set; }
+        public uint BaseDie { get; set; }
+        public int Modifier { get; set; }
+
+        public Dice(uint x, uint y, int z)
+        {
+            this.Scalar = x;
+            this.BaseDie = y;
+            this.Modifier = z;
+        }
+
+        public int Roll()
+        {
+            int result = 0;
+            Random rnd = new Random();
+            for (int i = 0; i < Scalar; i++)
+            {
+                result += rnd.Next(1, (int)BaseDie + 1);
+            }
+            result += Modifier;
+            return result;
+        }
+
+        public int RandomRangedGeneration()
+        {
+            return Roll();
+        }
+
+        public override string ToString()
+        {
+            return $"Dice({Scalar}d,{BaseDie},{Modifier})";
+        }
+
+        public override bool Equals(object? obj)
+        {
+            Dice d = (Dice)obj;
+            return Scalar == d.Scalar && BaseDie == d.BaseDie && Modifier == d.Modifier;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+    }
+
+    struct Bag : IRandomProvider
+    {
+        public List<int> startingList;
+        public List<int> backupList;
+
+        public Bag(int top)
+        {
+            startingList = new List<int>();
+            for (int i = 0; i < top; i++)
+            {
+                startingList.Add(i);
+            }
+            backupList = new List<int>();
+        }
+
+        int ChooseNum()
+        {
+            int result = Random.Shared.Next(0, startingList.Count);
+            int chosenNum = startingList[result];
+
+            backupList.Add(chosenNum);
+            startingList.Remove(result);
+
+            if (startingList.Count <= 0)
+            {
+                Shuffle();
+            }
+            return chosenNum;
+        }
+
+        public int RandomRangedGeneration()
+        {
+            return ChooseNum();
+        }
+
+        public void Shuffle()
+        {
+            startingList = backupList;
+            backupList.Clear();
+        }
+    }
+
     public enum Race
     {
         Elf,
