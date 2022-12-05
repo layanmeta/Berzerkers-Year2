@@ -23,19 +23,19 @@ namespace Berzerkers
         //50% chance to crit
         public override void Attack(Unit defender)
         {
-            int rollToHit = HitChance.RandomRangedGeneration();
-            int enemyDefendRoll = DefenceRating.RandomRangedGeneration();
+            int rollToHit = HitChance.RandomRangedGenerator();
+            int enemyDefendRoll = DefenceRating.RandomRangedGenerator();
             if (rollToHit >= enemyDefendRoll)
             {
                 Random rnd = new Random();
                 int critChance = rnd.Next(0, 100);
                 if (critChance >= 50)
                 {
-                    defender.TakeDamage(Damage.RandomRangedGeneration() * _critMultiply);
+                    defender.TakeDamage(Damage.RandomRangedGenerator() * _critMultiply);
                 }
                 else
                 {
-                    defender.TakeDamage(Damage.RandomRangedGeneration());
+                    defender.TakeDamage(Damage.RandomRangedGenerator());
                 }
             }
         }

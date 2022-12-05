@@ -25,21 +25,21 @@ namespace Berzerkers
 
         public virtual void Attack(Unit defender)
         {
-            int rollToHit = HitChance.RandomRangedGeneration();
-            int enemyDefendRoll = defender.DefenceRating.RandomRangedGeneration();
+            int rollToHit = HitChance.RandomRangedGenerator();
+            int enemyDefendRoll = defender.DefenceRating.RandomRangedGenerator();
             if (rollToHit >= enemyDefendRoll)
             {
-                defender.TakeDamage(Damage.RandomRangedGeneration());
+                defender.TakeDamage(Damage.RandomRangedGenerator());
             }
         }
 
         public virtual void Defend(Unit attacker)
         {
-            int rollToHit = HitChance.RandomRangedGeneration();
-            int enemyDefendRoll = attacker.DefenceRating.RandomRangedGeneration();
+            int rollToHit = HitChance.RandomRangedGenerator();
+            int enemyDefendRoll = attacker.DefenceRating.RandomRangedGenerator();
             if (rollToHit >= enemyDefendRoll)
             {
-                attacker.TakeDamage(Damage.RandomRangedGeneration());
+                attacker.TakeDamage(Damage.RandomRangedGenerator());
             }
         }
 
@@ -75,7 +75,7 @@ namespace Berzerkers
             return result;
         }
 
-        public int RandomRangedGeneration()
+        public int RandomRangedGenerator()
         {
             return Roll();
         }
@@ -127,7 +127,7 @@ namespace Berzerkers
             return chosenNum;
         }
 
-        public int RandomRangedGeneration()
+        public int RandomRangedGenerator()
         {
             return ChooseNum();
         }

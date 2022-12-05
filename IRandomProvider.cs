@@ -8,6 +8,6 @@ namespace Berzerkers
 {
     interface IRandomProvider
     {
-        public int RandomRangedGeneration();
+        public int RandomRangedGenerator();
     }
 }
